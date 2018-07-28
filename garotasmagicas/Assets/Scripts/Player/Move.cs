@@ -4,39 +4,53 @@ using UnityEngine;
 
 public class Move : MonoBehaviour {
 
-    public float horizontalSpeed;    
-    public float jumpHight;
-    public Rigidbody2D rigidBody;
+    public float horizontalSpeed;  
+    public float jumpForce;
 
+    public bool canJump;
+
+    public Rigidbody2D rigidBody;
     public GameObject fireBall;
+    public PlayerDirectionEnum direction;
 
     private Transform castPoint;
-    public PlayerDirectionEnum direction;
-  
 
     // Use this for initialization
     void Start () {
         castPoint = gameObject.GetComponentInChildren<Transform>();
+        canJump = true;
     }
-	
+    
 	// Update is called once per frame
 	void Update () {
         HorizontalMove();
-        Jump();
-        Attack();
+        Jump();        
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.gameObject.tag == "Plataform")
+        {
+            canJump = true;
+        }
     }
 
     void Jump()
-    {
+    {        
         float jump = Input.GetAxisRaw(gameObject.GetComponent<Controls>().jump);
-        if (jump > 0)
+        if (jump > 0 && canJump)
         {
             direction = PlayerDirectionEnum.UP;
-            
+            rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
+            rigidBody.AddForce(new Vector2(0, jumpForce));
+            canJump = false;
+
         }
+        
         if(jump < 0)
         {
-            direction = PlayerDirectionEnum.DOWN;
+            direction = PlayerDirectionEnum.DOWN;            
         }
     }
      
@@ -63,36 +77,4 @@ public class Move : MonoBehaviour {
             gameObject.transform.Translate(-horizontalSpeed * Time.deltaTime, 0, 0);
         }
     }
-
-    void Attack()
-    {
-        if (Input.GetButtonDown(gameObject.GetComponent<Controls>().attack))
-        {
-            fireBall.GetComponent<FireBall>().CastDirection(direction);
-
-            if (PlayerDirectionEnum.UP == direction)
-            {
-                Instantiate(fireBall as GameObject, new Vector2(castPoint.position.x, castPoint.position.y), Quaternion.identity);
-            }
-            if (PlayerDirectionEnum.DOWN == direction)
-            {
-                Instantiate(fireBall as GameObject, new Vector2(castPoint.position.x, castPoint.position.y), Quaternion.identity);
-            }
-            if (PlayerDirectionEnum.RIGHT == direction)
-            {
-                Instantiate(fireBall as GameObject, new Vector2(castPoint.position.x, castPoint.position.y), Quaternion.identity);
-            }
-            if (PlayerDirectionEnum.LEFT == direction)
-            {
-                Instantiate(fireBall as GameObject, new Vector2(castPoint.position.x, castPoint.position.y), Quaternion.identity);
-            }            
-        }
-    }
-
-    public void TakeDamage()
-    {
-        Debug.Log("Ai DOEU!!");
-    }
-
-
 }

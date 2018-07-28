@@ -16,7 +16,7 @@ public class FireBall : MonoBehaviour {
 
         if (PlayerDirectionEnum.LEFT == direction)
         {
-            gameObject.transform.Translate(-velocity * Time.deltaTime, 0, 0);
+            gameObject.transform.Translate(-1*(velocity * Time.deltaTime), 0, 0);
             //FLIP
         }
 
@@ -34,7 +34,7 @@ public class FireBall : MonoBehaviour {
 
         if (PlayerDirectionEnum.DOWN == direction)
         {
-            gameObject.transform.Translate(0, -velocity * Time.deltaTime, 0);
+            gameObject.transform.Translate(0, (velocity * Time.deltaTime)*-1, 0);
             //FLIP
         }
     }
@@ -44,7 +44,7 @@ public class FireBall : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Player")
         {
-            collision.GetComponent<Move>().TakeDamage();
+            collision.GetComponent<AttackDefense>().TakeDamage();
         }
 
     }

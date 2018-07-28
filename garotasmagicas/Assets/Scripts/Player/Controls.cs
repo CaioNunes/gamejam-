@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Controls : MonoBehaviour {
 
-    public string jump;
+    public string verticalMove;
     public string horizontalMove;    
     public string attack;
     public string shield;   

@@ -7,7 +7,16 @@ public class FireBall : MonoBehaviour {
     public float velocity;
     public PlayerDirectionEnum direction;
 
-    private void Update()
+    public float tempoVida;
+    private float timer = 0f;
+
+    void Update()
+    {
+        TimerDestruction();
+        Move();
+    }
+
+    private void Move()
     {
         if (PlayerDirectionEnum.RIGHT == direction)
         {
@@ -16,15 +25,9 @@ public class FireBall : MonoBehaviour {
 
         if (PlayerDirectionEnum.LEFT == direction)
         {
-            gameObject.transform.Translate(-1*(velocity * Time.deltaTime), 0, 0);
+            gameObject.transform.Translate((velocity * Time.deltaTime)*-1, 0, 0);
             //FLIP
-        }
-
-        if (PlayerDirectionEnum.RIGHT == direction)
-        {
-            gameObject.transform.Translate(velocity * Time.deltaTime, 0, 0);
-            //FLIPP
-        }
+        }        
 
         if (PlayerDirectionEnum.UP == direction)
         {
@@ -39,14 +42,23 @@ public class FireBall : MonoBehaviour {
         }
     }
 
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Player")
         {
             collision.GetComponent<AttackDefense>().TakeDamage();
+            Destroy(this.gameObject);
         }
+    }
 
+    private void TimerDestruction()
+    {
+        timer += Time.deltaTime;
+            if(timer >= tempoVida)
+            {
+            timer = 0;
+            Destroy(this.gameObject);
+            }
     }
 
 

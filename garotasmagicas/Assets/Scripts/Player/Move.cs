@@ -7,17 +7,15 @@ public class Move : MonoBehaviour {
     public float horizontalSpeed;  
     public float jumpForce;
 
-    public bool canJump;
+    private bool canJump;
 
     public Rigidbody2D rigidBody;
     public GameObject fireBall;
     public PlayerDirectionEnum direction;
-
-    private Transform castPoint;
-
+    public PlayerDirectionEnum directionTop;
+    
     // Use this for initialization
     void Start () {
-        castPoint = gameObject.GetComponentInChildren<Transform>();
         canJump = true;
     }
     
@@ -26,8 +24,6 @@ public class Move : MonoBehaviour {
         HorizontalMove();
         Jump();        
     }
-
-
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.gameObject.tag == "Plataform")
@@ -37,44 +33,45 @@ public class Move : MonoBehaviour {
     }
 
     void Jump()
-    {        
-        float jump = Input.GetAxisRaw(gameObject.GetComponent<Controls>().jump);
+    {
+        float jump = Input.GetAxisRaw(gameObject.GetComponent<Controls>().verticalMove);
         if (jump > 0 && canJump)
         {
-            direction = PlayerDirectionEnum.UP;
+            directionTop = PlayerDirectionEnum.UP;
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
             rigidBody.AddForce(new Vector2(0, jumpForce));
             canJump = false;
-
-        }
-        
-        if(jump < 0)
+        }        
+        if(Input.GetAxisRaw(gameObject.GetComponent<Controls>().verticalMove) < 0)
         {
-            direction = PlayerDirectionEnum.DOWN;            
+            directionTop = PlayerDirectionEnum.DOWN;            
         }
-    }
-     
+    }     
     void HorizontalMove()
     {
         float horizontalmove = Input.GetAxisRaw(gameObject.GetComponent<Controls>().horizontalMove);
-            if(horizontalmove > 0)
-            {
-                if (PlayerDirectionEnum.LEFT == direction)
-                {
-                    //Flip!!
+            if(horizontalmove > 0){
+                if (direction == PlayerDirectionEnum.LEFT){
+                    flip();
                 }
+
                direction = PlayerDirectionEnum.RIGHT;
                gameObject.transform.Translate(horizontalSpeed * Time.deltaTime, 0, 0);
             }
-
-        if (horizontalmove < 0)
+        if (Input.GetAxisRaw(gameObject.GetComponent<Controls>().horizontalMove) < 0)
         {
             if (PlayerDirectionEnum.RIGHT == direction)
             {
-                //Flip!!
+                flip();
             }
             direction = PlayerDirectionEnum.LEFT;
             gameObject.transform.Translate(-horizontalSpeed * Time.deltaTime, 0, 0);
         }
+    }
+
+    void flip() {
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 }

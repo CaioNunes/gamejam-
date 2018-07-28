@@ -6,18 +6,63 @@ public class FireBall : MonoBehaviour {
 
     public float velocity;
     public PlayerDirectionEnum direction;
+    private int multiplicador = 1;
 
     public float tempoVida;
     private float timer = 0f;
+    PlayerDirectionEnum positionOriginal;
+    bool tiroRicocheteado = false;
 
     void Update()
     {
         TimerDestruction();
-        Move();
+        // if (directionFutura != direction) {
+        //     direction = directionFutura;
+        // }
+
+        if (tiroRicocheteado == false)
+        {
+            Move();
+        }
+        else {
+            MoveRicocheteado();
+        }
+    }
+
+    void MoveRicocheteado() {
+        if (PlayerDirectionEnum.RIGHT == direction)
+        {
+            gameObject.transform.Translate(velocity * Time.deltaTime * -1, 0, 0);
+        }
+
+        if (PlayerDirectionEnum.LEFT == direction)
+        {
+
+            gameObject.transform.Translate((velocity * Time.deltaTime) , 0, 0);
+
+            //FLIP
+        }
+
+        if (PlayerDirectionEnum.UP == direction)
+        {
+            Debug.Log("Estou subindo");
+
+            gameObject.transform.Translate(0, velocity * Time.deltaTime * -1, 0);
+            //FLIPP
+        }
+
+        if (PlayerDirectionEnum.DOWN == direction)
+        {
+            Debug.Log("Estou descendo");
+            gameObject.transform.Translate(0, (velocity * Time.deltaTime), 0);
+            //FLIP
+        }
     }
 
     private void Move()
     {
+        Debug.Log(direction);
+
         if (PlayerDirectionEnum.RIGHT == direction)
         {
             gameObject.transform.Translate(velocity * Time.deltaTime, 0, 0);
@@ -25,18 +70,23 @@ public class FireBall : MonoBehaviour {
 
         if (PlayerDirectionEnum.LEFT == direction)
         {
-            gameObject.transform.Translate((velocity * Time.deltaTime)*-1, 0, 0);
+           
+         gameObject.transform.Translate((velocity * Time.deltaTime) * -1, 0, 0);
+  
             //FLIP
         }        
 
         if (PlayerDirectionEnum.UP == direction)
         {
+            Debug.Log("Estou subindo");
+
             gameObject.transform.Translate(0, velocity * Time.deltaTime, 0);
             //FLIPP
         }
 
-        if (PlayerDirectionEnum.DOWN == direction)
+        if (PlayerDirectionEnum.DOWN == direction)  
         {
+            Debug.Log("Estou descendo");
             gameObject.transform.Translate(0, (velocity * Time.deltaTime)*-1, 0);
             //FLIP
         }
@@ -49,9 +99,15 @@ public class FireBall : MonoBehaviour {
             collision.GetComponent<AttackDefense>().TakeDamage();
             Destroy(this.gameObject);
         }
+
+        if (collision.gameObject.tag == "Shield")
+        {
+            tiroRicocheteado = !tiroRicocheteado;
+            //collision.gameObject.GetComponent<FireBall>().redirecionarProjetil();
+        }
     }
 
-    private void TimerDestruction()
+        private void TimerDestruction()
     {
         timer += Time.deltaTime;
             if(timer >= tempoVida)
@@ -65,7 +121,11 @@ public class FireBall : MonoBehaviour {
     public void CastDirection(PlayerDirectionEnum castDirection)
     {
         direction = castDirection;
+        positionOriginal = castDirection;
     }
 
+    void flip() {
+        
+    }
 
 }

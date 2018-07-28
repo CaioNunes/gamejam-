@@ -507,7 +507,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1346367758}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.82, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 852814692}
@@ -636,6 +636,7 @@ MonoBehaviour:
   rigidBody: {fileID: 1346367763}
   fireBall: {fileID: 1059724501029148, guid: 3fdc9d96d29f14941bc8e02fd7146dc7, type: 2}
   direction: 2
+  directionTop: 0
 --- !u!61 &1346367766
 BoxCollider2D:
   m_ObjectHideFlags: 0

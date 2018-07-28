@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum DirecaoEnum {
+public enum PlayerDirectionEnum {
 
-    CIMA, BAIXO, DIREITA, ESQUERDA
+    UP, DOWN, RIGHT, LEFT
 }

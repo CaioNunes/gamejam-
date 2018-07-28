@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveController : MonoBehaviour {
+public class MovePlayer : MonoBehaviour {
 
     public float velocidade;
     public float delayAttack;
@@ -10,7 +10,7 @@ public class MoveController : MonoBehaviour {
 
     //Não mapeado
     public float velocidadePulo;
-    public DirecaoEnum direcao;
+    public PlayerDirectionEnum direcao;
     public Rigidbody2D rd2;
 
     private bool pulou = false;
@@ -23,17 +23,17 @@ public class MoveController : MonoBehaviour {
 
     void Update() {
         //transform.Translate(x,y,z);
-        float direita = Input.GetAxisRaw(gameObject.GetComponent<Controles>().direita);
+        float direita = Input.GetAxisRaw(gameObject.GetComponent<Controls>().horizontalMove);
         //float cima = Input.GetButtonDown(gameObject.GetComponent<Controles>().pular);
         
         if (direita > 0)
         {
-            if (DirecaoEnum.ESQUERDA == direcao)
+            if (PlayerDirectionEnum.LEFT == direcao)
             {
                 //TODO: Flip;
             }
 
-            direcao = DirecaoEnum.DIREITA;
+            direcao = PlayerDirectionEnum.RIGHT;
 
             
             gameObject.transform.Translate(velocidade * Time.deltaTime, 0, 0);
@@ -41,12 +41,12 @@ public class MoveController : MonoBehaviour {
 
         if (direita < 0)
         {
-            if (DirecaoEnum.DIREITA == direcao)
+            if (PlayerDirectionEnum.RIGHT == direcao)
             {
                 //TODO: Flip;
             }
 
-            direcao = DirecaoEnum.ESQUERDA;
+            direcao = PlayerDirectionEnum.LEFT;
 
             gameObject.transform.Translate((velocidade * Time.deltaTime) * -1, 0, 0);
         }
@@ -54,14 +54,14 @@ public class MoveController : MonoBehaviour {
 
 
 
-        if (Input.GetButtonDown(gameObject.GetComponent<Controles>().pular) && !pulou)
+        if (Input.GetButtonDown(gameObject.GetComponent<Controls>().jump) && !pulou)
         {
-            float cima = Input.GetAxisRaw(gameObject.GetComponent<Controles>().pular);
+            float cima = Input.GetAxisRaw(gameObject.GetComponent<Controls>().jump);
             if (cima > 0)
             {
-                if (DirecaoEnum.CIMA != direcao)
+                if (PlayerDirectionEnum.UP != direcao)
                 {
-                    direcao = DirecaoEnum.CIMA;
+                    direcao = PlayerDirectionEnum.UP;
                 }
 
                 isPulando = true;
@@ -69,7 +69,7 @@ public class MoveController : MonoBehaviour {
                 posicaoAtual = gameObject.transform.position.y;
             }
             else {
-                direcao = DirecaoEnum.BAIXO;
+                direcao = PlayerDirectionEnum.DOWN;
             }
             
             //rd2.velocity = new Vector2(rd2.velocity.x, 0);

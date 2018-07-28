@@ -636,6 +636,7 @@ MonoBehaviour:
   rigidBody: {fileID: 1346367763}
   fireBall: {fileID: 1059724501029148, guid: 3fdc9d96d29f14941bc8e02fd7146dc7, type: 2}
   direction: 2
+  directionTop: 0
 --- !u!61 &1346367766
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -675,6 +676,8 @@ MonoBehaviour:
   fireBall: {fileID: 1059724501029148, guid: 3fdc9d96d29f14941bc8e02fd7146dc7, type: 2}
   castPoint: {fileID: 852814692}
   cast: {fileID: 8300000, guid: 769597be42556a54680184715fdab720, type: 3}
+  fireHate: 0.5
+  canAttack: 0
 --- !u!1 &1389166986
 GameObject:
   m_ObjectHideFlags: 0

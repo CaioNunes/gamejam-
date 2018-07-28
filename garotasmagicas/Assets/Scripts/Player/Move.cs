@@ -38,6 +38,7 @@ public class Move : MonoBehaviour {
         if (jump > 0 && canJump)
         {
             directionTop = PlayerDirectionEnum.UP;
+
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
             rigidBody.AddForce(new Vector2(0, jumpForce));
             canJump = false;

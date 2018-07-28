@@ -6,27 +6,30 @@ public class AttackDefense : MonoBehaviour {
 
 
     public GameObject fireBall;
-    public Transform castPoint;
-    private PlayerDirectionEnum direction;
+    public Transform castPoint;    
     public AudioClip cast;
+    public float fireHate;
+    public bool canAttack;
+    private float timer;
+    private PlayerDirectionEnum direction;
 
-	void Start () {
-        
+    void Start () {
+        canAttack = true;
     }	
 	// Update is called once per frame
 	void Update () {
         HandleDirection();
         Attack();
+        FireHateTimer();
 	}
     
     void Attack()
     {
-        if (Input.GetButtonDown(gameObject.GetComponent<Controls>().attack))
-        {
+        if (Input.GetButtonDown(gameObject.GetComponent<Controls>().attack)&&canAttack)
+        {            
             fireBall.GetComponent<FireBall>().CastDirection(direction);
-           
             if (PlayerDirectionEnum.UP == direction)
-            {
+            {                
                 Instantiate(fireBall as GameObject, new Vector2(castPoint.position.x,castPoint.position.y), Quaternion.identity);
             }
             if (PlayerDirectionEnum.DOWN == direction)
@@ -37,7 +40,7 @@ public class AttackDefense : MonoBehaviour {
             {
                 Instantiate(fireBall as GameObject, new Vector2(castPoint.position.x,castPoint.position.y), Quaternion.identity);
             }
-            
+            canAttack = false;
             AudioSource.PlayClipAtPoint(cast, transform.position);
         }
     }
@@ -64,7 +67,20 @@ public class AttackDefense : MonoBehaviour {
         {
             direction = PlayerDirectionEnum.DOWN;
         }
-    }        
+    }  
+    
+    void FireHateTimer()
+    {
+        if(canAttack == false)
+        {
+            timer += Time.deltaTime;
+            if(timer >= fireHate)
+            {
+                canAttack = true;
+                timer = 0;
+            }
+        }
+    }
 
     public void TakeDamage()
     {

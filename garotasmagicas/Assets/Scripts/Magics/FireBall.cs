@@ -7,7 +7,7 @@ public class FireBall : MonoBehaviour {
     public float velocity;
     public PlayerDirectionEnum direction;
 
-    public float tempoVida;
+    public float lifetime;
     private float timer = 0f;
 
     void Update()
@@ -17,7 +17,7 @@ public class FireBall : MonoBehaviour {
     }
 
     private void Move()
-    {
+    {        
         if (PlayerDirectionEnum.RIGHT == direction)
         {
             gameObject.transform.Translate(velocity * Time.deltaTime, 0, 0);
@@ -50,17 +50,16 @@ public class FireBall : MonoBehaviour {
             Destroy(this.gameObject);
         }
     }
-
+    
     private void TimerDestruction()
     {
         timer += Time.deltaTime;
-            if(timer >= tempoVida)
+            if(timer >= lifetime)
             {
             timer = 0;
             Destroy(this.gameObject);
             }
     }
-
 
     public void CastDirection(PlayerDirectionEnum castDirection)
     {

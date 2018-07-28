@@ -16,7 +16,6 @@ public class FireBall : MonoBehaviour {
     void Update()
     {
         TimerDestruction();
-        Move();
         // if (directionFutura != direction) {
         //     direction = directionFutura;
         // }
@@ -61,13 +60,10 @@ public class FireBall : MonoBehaviour {
     }
 
     private void Move()
-<<<<<<< HEAD
-    {        
-=======
+
     {
         Debug.Log(direction);
 
->>>>>>> b410a9fb85fd4c3d3a337d892905da781ef5c19d
         if (PlayerDirectionEnum.RIGHT == direction)
         {
             gameObject.transform.Translate(velocity * Time.deltaTime, 0, 0);
@@ -111,13 +107,8 @@ public class FireBall : MonoBehaviour {
             //collision.gameObject.GetComponent<FireBall>().redirecionarProjetil();
         }
     }
-<<<<<<< HEAD
-    
-    private void TimerDestruction()
-=======
 
         private void TimerDestruction()
->>>>>>> b410a9fb85fd4c3d3a337d892905da781ef5c19d
     {
         timer += Time.deltaTime;
             if(timer >= lifetime)

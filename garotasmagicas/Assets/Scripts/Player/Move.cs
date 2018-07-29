@@ -14,6 +14,7 @@ public class Move : MonoBehaviour {
     public GameObject fireBall;
     public PlayerDirectionEnum direction;
     public PlayerDirectionEnum directionTop;
+    Animator animator;
 
     public float contador;
     float timer = 0;
@@ -22,6 +23,7 @@ public class Move : MonoBehaviour {
     void Start () {
         canJump = true;
         PauseAndResume();
+        animator = GetComponent<Animator>();
     }
 
     void PauseAndResume()
@@ -63,6 +65,7 @@ public class Move : MonoBehaviour {
         float jump = Input.GetAxisRaw(gameObject.GetComponent<Controls>().verticalMove);
         if (jump > 0 && canJump)
         {
+            animator.Play("Jump");
             directionTop = PlayerDirectionEnum.UP;
 
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
@@ -77,7 +80,9 @@ public class Move : MonoBehaviour {
     void HorizontalMove()
     {
         float horizontalmove = Input.GetAxisRaw(gameObject.GetComponent<Controls>().horizontalMove);
-            if(horizontalmove > 0){
+        animator.SetFloat("speed", Mathf.Abs(horizontalmove));
+
+        if (horizontalmove > 0){
                 if (direction == PlayerDirectionEnum.LEFT){
                     flip();
                 }
@@ -85,7 +90,8 @@ public class Move : MonoBehaviour {
                direction = PlayerDirectionEnum.RIGHT;
                gameObject.transform.Translate(horizontalSpeed * Time.deltaTime, 0, 0);
             }
-        if (Input.GetAxisRaw(gameObject.GetComponent<Controls>().horizontalMove) < 0)
+
+        if (horizontalmove < 0)
         {
             if (PlayerDirectionEnum.RIGHT == direction)
             {

@@ -9,7 +9,6 @@ public class AttackDefense : MonoBehaviour {
     public Transform castPointHorizontal;
     public Transform castPointUP;
     public Transform castPointDOWN;
-    public Transform castPointShield;
     public AudioClip cast;
     public float fireHate;
     public float shieldCoolDown;
@@ -17,12 +16,14 @@ public class AttackDefense : MonoBehaviour {
     public bool canShield;
     private float timerAttack;
     private float timerShield;
+    Animator animator;
     
-    public PlayerDirectionEnum direction;
+    private PlayerDirectionEnum direction;
 
     void Start () {
         canAttack = true;
         canShield = true;
+        animator = GetComponent<Animator>();
     }	
 	// Update is called once per frame
 	void Update () {
@@ -36,7 +37,8 @@ public class AttackDefense : MonoBehaviour {
     void Attack()
     {
         if (Input.GetButtonDown(gameObject.GetComponent<Controls>().attack) && canAttack)
-        {            
+        {
+            animator.Play("Attack");
             fireBall.GetComponent<FireBall>().CastDirection(direction);
             if (PlayerDirectionEnum.UP == direction)
             {                
@@ -66,8 +68,8 @@ public class AttackDefense : MonoBehaviour {
         //Se o botão de defesa foi desparado e o seu cooldown está zerado.
         if (Input.GetButtonDown(gameObject.GetComponent<Controls>().shield) && canShield)
         {
-            GameObject newShield = Instantiate(shield, castPointShield.position, castPointShield.rotation);
-            newShield.transform.SetParent(castPointShield);
+            GameObject newShield = Instantiate(shield, castPointHorizontal.position, castPointHorizontal.rotation);
+            newShield.transform.SetParent(castPointHorizontal);
 
             canShield = false;
         }       
@@ -120,15 +122,7 @@ public class AttackDefense : MonoBehaviour {
                 timerShield = 0;
             }                
         }
-    }
-
-    void Rotation(GameObject rotator,float rotationInZ)
-    {
-        Quaternion rotation = rotator.transform.localRotation;
-        rotation.z = rotationInZ;
-        rotator.transform.localRotation = rotation;
-    }
-
+    }  
 
     void Flip(GameObject fliper)
     {

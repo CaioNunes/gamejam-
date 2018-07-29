@@ -39,15 +39,21 @@ public class AttackDefense : MonoBehaviour {
             fireBall.GetComponent<FireBall>().CastDirection(direction);
             if (PlayerDirectionEnum.UP == direction)
             {                
-                Instantiate(fireBall as GameObject, new Vector2(castPointUP.position.x,castPointUP.position.y), Quaternion.identity);                
+                Instantiate(fireBall as GameObject, new Vector2(castPointUP.position.x, castPointUP.position.y), Quaternion.Euler(0f, 0f, 90f));                
             }
             if (PlayerDirectionEnum.DOWN == direction)
             {                
-                Instantiate(fireBall as GameObject, new Vector2(castPointDOWN.position.x,castPointDOWN.position.y), Quaternion.identity);                
+                Instantiate(fireBall as GameObject, new Vector2(castPointDOWN.position.x,castPointDOWN.position.y), Quaternion.Euler(0f, 0f, -90f));                
             }
-            if (PlayerDirectionEnum.RIGHT == direction || PlayerDirectionEnum.LEFT == direction)
+            if (PlayerDirectionEnum.RIGHT == direction)
             {
                 Instantiate(fireBall as GameObject, new Vector2(castPointHorizontal.position.x,castPointHorizontal.position.y), Quaternion.identity);
+            }
+            if (PlayerDirectionEnum.LEFT == direction)
+            {
+                Flip(fireBall);
+                Instantiate(fireBall as GameObject, new Vector2(castPointHorizontal.position.x, castPointHorizontal.position.y), Quaternion.identity);
+                Flip(fireBall);
             }
             canAttack = false;
             AudioSource.PlayClipAtPoint(cast, transform.position);
@@ -113,6 +119,21 @@ public class AttackDefense : MonoBehaviour {
                 timerShield = 0;
             }                
         }
+    }
+
+    void Rotation(GameObject rotator,float rotationInZ)
+    {
+        Quaternion rotation = rotator.transform.localRotation;
+        rotation.z = rotationInZ;
+        rotator.transform.localRotation = rotation;
+    }
+
+
+    void Flip(GameObject fliper)
+    {
+        Vector3 scale = fliper.transform.localScale;
+        scale.x *= -1;
+        fliper.transform.localScale = scale;
     }
 
     public void TakeDamage()

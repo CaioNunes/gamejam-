@@ -27,61 +27,32 @@ public class FireBall : MonoBehaviour {
     }
 
     void MoveRicocheteado() {
+        
         if (PlayerDirectionEnum.RIGHT == direction)
         {
             gameObject.transform.Translate(velocity * Time.deltaTime * -1, 0, 0);
-            //FLIP
         }
-
-        if (PlayerDirectionEnum.LEFT == direction)
+        else
         {
-            gameObject.transform.Translate((velocity * Time.deltaTime) , 0, 0);
-            //FLIP
-        }
-
-        if (PlayerDirectionEnum.UP == direction)
-        {
-            gameObject.transform.Translate(0, velocity * Time.deltaTime * -1, 0);
-            //FLIP
-        }
-
-        if (PlayerDirectionEnum.DOWN == direction)
-        {            
-            gameObject.transform.Translate(0, (velocity * Time.deltaTime), 0);
-            //FLIP
-        }
+            gameObject.transform.Translate(velocity * Time.deltaTime, 0, 0);            
+        } 
     }
 
     private void Move()
 
     {
-        if (PlayerDirectionEnum.RIGHT == direction)
-        {
-            gameObject.transform.Translate(velocity * Time.deltaTime, 0, 0);
-            //FLIP
-        }
-
         if (PlayerDirectionEnum.LEFT == direction)
         {           
-         gameObject.transform.Translate((velocity * Time.deltaTime) * -1, 0, 0);  
-            //FLIP
-        }        
-
-        if (PlayerDirectionEnum.UP == direction)
+            gameObject.transform.Translate((velocity * Time.deltaTime) * -1, 0, 0);
+        }
+        else
         {
-            gameObject.transform.Translate(0, velocity * Time.deltaTime, 0);
-            //FLIPP
-        }
-
-        if (PlayerDirectionEnum.DOWN == direction)  
-        {            
-            gameObject.transform.Translate(0, (velocity * Time.deltaTime)*-1, 0);
-            //FLIP
-        }
+            gameObject.transform.Translate(velocity * Time.deltaTime, 0, 0);
+        } 
     }
 
     void OnTriggerEnter2D(Collider2D collision)
-    {
+    {        
         if(collision.gameObject.tag == "Player")
         {
             collision.GetComponent<AttackDefense>().TakeDamage();
@@ -91,7 +62,19 @@ public class FireBall : MonoBehaviour {
         if (collision.gameObject.tag == "Shield")
         {
             tiroRicocheteado = !tiroRicocheteado;
-            //collision.gameObject.GetComponent<FireBall>().redirecionarProjetil();
+            if(PlayerDirectionEnum.UP == direction || PlayerDirectionEnum.DOWN == direction)
+            {
+                Rotation(gameObject);
+            }
+            else
+            {
+                Flip(gameObject);
+            }
+        }
+
+        if (collision.gameObject.tag == "Plataform")
+        {
+            Destroy(this.gameObject);
         }
     }
 
@@ -105,14 +88,23 @@ public class FireBall : MonoBehaviour {
             }
     }
 
+    void Rotation(GameObject rotator)
+    {
+        Quaternion rotation = rotator.transform.localRotation;
+        rotation.z *= -1;
+        rotator.transform.localRotation = rotation;
+    }
+
+    void Flip(GameObject fliper)
+    {
+        Vector3 scale = fliper.transform.localScale;
+        scale.x *= -1;
+        fliper.transform.localScale = scale;
+    }
+
     public void CastDirection(PlayerDirectionEnum castDirection)
     {
         direction = castDirection;
         positionOriginal = castDirection;
     }
-
-    void flip() {
-        
-    }
-
 }

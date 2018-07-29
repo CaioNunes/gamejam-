@@ -14,15 +14,12 @@ public class LevelManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         PauseAndResume();
-        time = matchTime;
-        //StartCoroutine(ResumeAfterNSeconds(pauseTime + matchTime));
+        time = matchTime;        
     }
 	
 	// Update is called once per frame
 	void Update () {
-		 time -= Time.deltaTime;
-        Debug.Log(Mathf.RoundToInt(time));
-       // Debug.Log((int)time);
+		 time -= Time.deltaTime;              
 	}
 
 

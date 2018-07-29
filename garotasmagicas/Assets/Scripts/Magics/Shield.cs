@@ -6,22 +6,20 @@ using UnityEngine;
 public class Shield : MonoBehaviour
 {
 
-   // public float shieldTimer = 5.0f;
-   // public bool shieldPowerUpActivated = true;
+    public float shieldTimer = 5.0f;
 
     void Start()
     {
-   //     shieldPowerUpActivated = true;
+       
     }
 
     void Update()
     {
+        shieldTimer -= Time.deltaTime;
 
-      //  if (shieldTimer <= 0.0f)
-     //   {
-     //       shieldPowerUpActivated = false;
-     //       Destroy(this.gameObject);
-     //   }
-     //   shieldTimer -= Time.deltaTime;
+        if (shieldTimer <= 0.0f)
+        {
+            Destroy(this.gameObject);
+        }        
     }     
 }

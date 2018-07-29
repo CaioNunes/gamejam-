@@ -286,6 +286,7 @@ MonoBehaviour:
   fireBall: {fileID: 1149189046215956, guid: 24b485787339f1c47bf0564fe4e1daed, type: 2}
   direction: 2
   directionTop: 0
+  explodiu: {fileID: 8300000, guid: ae7a29d98caf7954c9b3d03d4d30186c, type: 3}
   deathTimer: 0.28
 --- !u!114 &114952024152947890
 MonoBehaviour:

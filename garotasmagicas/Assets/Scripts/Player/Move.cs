@@ -16,6 +16,8 @@ public class Move : MonoBehaviour {
     public PlayerDirectionEnum direction;
     public PlayerDirectionEnum directionTop;
     Animator animator;
+    public AudioClip explodiu;
+    bool jaVerifiquei = false;
 
     public float deathTimer = 0f;
     float timerMorte = 0f;
@@ -98,10 +100,12 @@ public class Move : MonoBehaviour {
 
     void Alive()
     {
-        if (life <= 0)
+        if (life <= 0 && !jaVerifiquei)
         {
             isAlive = false;
+            jaVerifiquei = true;
             animator.Play("Death");
+            AudioSource.PlayClipAtPoint(explodiu, transform.position);
         }
 
         if (!isAlive)

@@ -6,7 +6,9 @@ public class AttackDefense : MonoBehaviour {
 
 
     public GameObject fireBall;
-    public Transform castPoint;    
+    public Transform castPointHorizontal;
+    public Transform castPointUP;
+    public Transform castPointDOWN;
     public AudioClip cast;
     public float fireHate;
     public bool canAttack;
@@ -14,7 +16,7 @@ public class AttackDefense : MonoBehaviour {
     private PlayerDirectionEnum direction;
 
     void Start () {
-        canAttack = true;
+        canAttack = true;        
     }	
 	// Update is called once per frame
 	void Update () {
@@ -30,15 +32,15 @@ public class AttackDefense : MonoBehaviour {
             fireBall.GetComponent<FireBall>().CastDirection(direction);
             if (PlayerDirectionEnum.UP == direction)
             {                
-                Instantiate(fireBall as GameObject, new Vector2(castPoint.position.x,castPoint.position.y), Quaternion.identity);
+                Instantiate(fireBall as GameObject, new Vector2(castPointUP.position.x,castPointUP.position.y), Quaternion.identity);                
             }
             if (PlayerDirectionEnum.DOWN == direction)
-            {
-                Instantiate(fireBall as GameObject, new Vector2(castPoint.position.x,castPoint.position.y), Quaternion.identity);
+            {                
+                Instantiate(fireBall as GameObject, new Vector2(castPointDOWN.position.x,castPointDOWN.position.y), Quaternion.identity);                
             }
             if (PlayerDirectionEnum.RIGHT == direction || PlayerDirectionEnum.LEFT == direction)
             {
-                Instantiate(fireBall as GameObject, new Vector2(castPoint.position.x,castPoint.position.y), Quaternion.identity);
+                Instantiate(fireBall as GameObject, new Vector2(castPointHorizontal.position.x,castPointHorizontal.position.y), Quaternion.identity);
             }
             canAttack = false;
             AudioSource.PlayClipAtPoint(cast, transform.position);

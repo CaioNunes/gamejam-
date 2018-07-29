@@ -16,9 +16,6 @@ public class FireBall : MonoBehaviour {
     void Update()
     {
         TimerDestruction();
-        // if (directionFutura != direction) {
-        //     direction = directionFutura;
-        // }
 
         if (tiroRicocheteado == false)
         {
@@ -37,23 +34,18 @@ public class FireBall : MonoBehaviour {
 
         if (PlayerDirectionEnum.LEFT == direction)
         {
-
             gameObject.transform.Translate((velocity * Time.deltaTime) , 0, 0);
-
             //FLIP
         }
 
         if (PlayerDirectionEnum.UP == direction)
         {
-            Debug.Log("Estou subindo");
-
             gameObject.transform.Translate(0, velocity * Time.deltaTime * -1, 0);
             //FLIPP
         }
 
         if (PlayerDirectionEnum.DOWN == direction)
-        {
-            Debug.Log("Estou descendo");
+        {            
             gameObject.transform.Translate(0, (velocity * Time.deltaTime), 0);
             //FLIP
         }
@@ -62,11 +54,10 @@ public class FireBall : MonoBehaviour {
     private void Move()
 
     {
-        Debug.Log(direction);
-
         if (PlayerDirectionEnum.RIGHT == direction)
         {
             gameObject.transform.Translate(velocity * Time.deltaTime, 0, 0);
+            //FLIP
         }
 
         if (PlayerDirectionEnum.LEFT == direction)
@@ -79,15 +70,12 @@ public class FireBall : MonoBehaviour {
 
         if (PlayerDirectionEnum.UP == direction)
         {
-            Debug.Log("Estou subindo");
-
             gameObject.transform.Translate(0, velocity * Time.deltaTime, 0);
             //FLIPP
         }
 
         if (PlayerDirectionEnum.DOWN == direction)  
-        {
-            Debug.Log("Estou descendo");
+        {            
             gameObject.transform.Translate(0, (velocity * Time.deltaTime)*-1, 0);
             //FLIP
         }

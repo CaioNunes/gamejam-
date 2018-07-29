@@ -22,7 +22,9 @@ public class LevelManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         PauseAndResume();
-        time = matchTime;        
+        time = matchTime;
+        canAttack = false;
+        canMove = false;
     }
 	
 	// Update is called once per frame

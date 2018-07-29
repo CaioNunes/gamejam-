@@ -9,6 +9,7 @@ public class AttackDefense : MonoBehaviour {
     public Transform castPointHorizontal;
     public Transform castPointUP;
     public Transform castPointDOWN;
+    public Transform castPointShield;
     public AudioClip cast;
     public float fireHate;
     public float shieldCoolDown;
@@ -17,7 +18,7 @@ public class AttackDefense : MonoBehaviour {
     private float timerAttack;
     private float timerShield;
     
-    private PlayerDirectionEnum direction;
+    public PlayerDirectionEnum direction;
 
     void Start () {
         canAttack = true;
@@ -65,8 +66,8 @@ public class AttackDefense : MonoBehaviour {
         //Se o botão de defesa foi desparado e o seu cooldown está zerado.
         if (Input.GetButtonDown(gameObject.GetComponent<Controls>().shield) && canShield)
         {
-            GameObject newShield = Instantiate(shield, castPointHorizontal.position, castPointHorizontal.rotation);
-            newShield.transform.SetParent(castPointHorizontal);
+            GameObject newShield = Instantiate(shield, castPointShield.position, castPointShield.rotation);
+            newShield.transform.SetParent(castPointShield);
 
             canShield = false;
         }       

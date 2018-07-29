@@ -59,7 +59,7 @@ public class FireBall : MonoBehaviour {
             Destroy(this.gameObject);
         }
 
-        if (collision.gameObject.tag == "Shield")
+        if (collision.gameObject.tag == "Shield" || collision.gameObject.tag == "Plataform")
         {
             tiroRicocheteado = !tiroRicocheteado;
             if(PlayerDirectionEnum.UP == direction || PlayerDirectionEnum.DOWN == direction)

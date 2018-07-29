@@ -35,7 +35,9 @@ public class LevelManager : MonoBehaviour {
 
         if (GameObject.FindGameObjectsWithTag("Player").Length == 1)
         {
-            SceneManager.LoadScene("Win");
+            GameObject vencedor = GameObject.FindGameObjectWithTag("Player");
+            DontDestroyOnLoad(vencedor);
+            SceneManager.LoadScene("Win");            
             Destroy(this.gameObject);
 
         }

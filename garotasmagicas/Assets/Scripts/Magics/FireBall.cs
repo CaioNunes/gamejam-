@@ -74,7 +74,7 @@ public class FireBall : MonoBehaviour {
 
         if (collision.gameObject.tag == "Plataform")
         {
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
         }
     }
 

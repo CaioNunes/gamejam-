@@ -30,7 +30,7 @@ public class Move : MonoBehaviour {
     {
         Time.timeScale = 0;
         //Display Image here
-        StartCoroutine(ResumeAfterNSeconds(5.0f));
+        StartCoroutine(ResumeAfterNSeconds(6.5f));
     }
 
     
@@ -39,10 +39,10 @@ public class Move : MonoBehaviour {
         yield return new WaitForEndOfFrame();
         timer += Time.unscaledDeltaTime;
         if (timer < timePeriod)
-            StartCoroutine(ResumeAfterNSeconds(3.0f));
+            StartCoroutine(ResumeAfterNSeconds(6.5f));
         else
         {
-            Time.timeScale = 1;                //Resume
+            Time.timeScale = 1;                
             timer = 0;
         }
     }
@@ -54,7 +54,7 @@ public class Move : MonoBehaviour {
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.gameObject.tag == "Plataform")
+        if(collider.gameObject.tag == "Plataform" || collider.gameObject.tag == "Player")
         {
             canJump = true;
         }

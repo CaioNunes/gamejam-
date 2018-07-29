@@ -22,7 +22,7 @@ GameObject:
   m_Layer: 0
   m_Name: CastPoint_UP
   m_TagString: Untagged
-  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -37,7 +37,7 @@ GameObject:
   m_Layer: 0
   m_Name: CastPoint_DOWN
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -75,7 +75,7 @@ GameObject:
   m_Layer: 0
   m_Name: CastPoint_Shield
   m_TagString: Untagged
-  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -90,7 +90,7 @@ GameObject:
   m_Layer: 0
   m_Name: CastPoint_Horizontal
   m_TagString: Untagged
-  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -195,7 +195,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0022247583, y: -0.30757093}
+  m_Offset: {x: -0.010148428, y: -0.2890147}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -206,7 +206,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.34456113, y: 0.14985788}
+  m_Size: {x: 0.23737128, y: 0.112760276}
   m_EdgeRadius: 0
 --- !u!61 &61504605927063384
 BoxCollider2D:
@@ -242,7 +242,7 @@ Animator:
   m_GameObject: {fileID: 1503051651172400}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 9fb17ced373c22a46b45641732ba6f84, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -303,10 +303,9 @@ MonoBehaviour:
   castPointShield: {fileID: 4606032489903396}
   cast: {fileID: 8300000, guid: 769597be42556a54680184715fdab720, type: 3}
   fireHate: 0.5
-  shieldCoolDown: 10
+  shieldCoolDown: 5
   canAttack: 0
-  canShield: 0
-  direction: 0
+  canShield: 1
 --- !u!212 &212300695462386268
 SpriteRenderer:
   m_ObjectHideFlags: 1

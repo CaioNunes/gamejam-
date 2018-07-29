@@ -70,7 +70,7 @@ public class AttackDefense : MonoBehaviour {
         if (Input.GetButtonDown(gameObject.GetComponent<Controls>().shield) && canShield)
         {
             GameObject newShield = Instantiate(shield, castPointShield.position, castPointShield.rotation);
-            newShield.transform.SetParent(castPointHorizontal);
+            newShield.transform.SetParent(castPointShield);
 
             canShield = false;
         }       

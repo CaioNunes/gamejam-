@@ -16,6 +16,11 @@ public class Move : MonoBehaviour {
     public PlayerDirectionEnum direction;
     public PlayerDirectionEnum directionTop;
     Animator animator;
+
+    public float deathTimer = 0f;
+    float timerMorte = 0f;
+
+    private static int qtdPlayers = 2;
     
     // Use this for initialization
     void Start () {
@@ -29,6 +34,15 @@ public class Move : MonoBehaviour {
         HorizontalMove();
         Jump();
         Alive();
+
+        if (GameObject.FindGameObjectsWithTag("Player").Length == 1)
+        {
+            Debug.Log("VITORIA!!!");
+        }
+        else if (GameObject.FindGameObjectsWithTag("Player").Length == 0)
+        {
+            Debug.Log("EMPATE!!!");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -87,11 +101,15 @@ public class Move : MonoBehaviour {
         if (life <= 0)
         {
             isAlive = false;
+            animator.Play("Death");
         }
 
         if (!isAlive)
         {
-            Destroy(this.gameObject);
+            timerMorte += Time.deltaTime;
+            if (timerMorte >= deathTimer) {
+                Destroy(this.gameObject);
+            }
         }
     }
 

@@ -25,7 +25,7 @@ public class LevelManager : MonoBehaviour {
 	void Update () {
 		 time -= Time.deltaTime;
         numero -= Time.deltaTime;
-        Debug.Log(numero);
+        //Debug.Log(numero);
        
 
 

@@ -11,6 +11,7 @@ public class AttackDefense : MonoBehaviour {
     public Transform castPointDOWN;
     public Transform castPointShield;
     public AudioClip cast;
+    public AudioClip escudo;
     public float fireHate;
     public float shieldCoolDown;
     public bool canAttack;
@@ -73,7 +74,9 @@ public class AttackDefense : MonoBehaviour {
             newShield.transform.SetParent(castPointShield);
 
             canShield = false;
-        }       
+            AudioSource.PlayClipAtPoint(escudo, transform.position);
+
+        }
     }
 
     void HandleDirection()
@@ -134,7 +137,8 @@ public class AttackDefense : MonoBehaviour {
 
     public void TakeDamage()
     {
-        gameObject.GetComponent<Move>().life -= 1; 
+        Debug.Log("HIT");
+        gameObject.GetComponent<Move>().life -= 1;
     }    
 
 }

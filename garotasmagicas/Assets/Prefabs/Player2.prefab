@@ -262,15 +262,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0231ee765a23e1b4e87a19856eb007ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 10
-  jumpForce: 300
-  life: 0
+  horizontalSpeed: 8
+  jumpForce: 250
+  life: 2
   isAlive: 0
   canJump: 0
   rigidBody: {fileID: 50847391454851868}
   fireBall: {fileID: 1149189046215956, guid: 24b485787339f1c47bf0564fe4e1daed, type: 2}
   direction: 2
   directionTop: 0
+  deathTimer: 0.28
 --- !u!114 &114444733811019298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -289,8 +290,9 @@ MonoBehaviour:
   castPointDOWN: {fileID: 4908793203645100}
   castPointShield: {fileID: 4870641013445648}
   cast: {fileID: 8300000, guid: e29158356be720a46915057797f1d4c8, type: 3}
+  escudo: {fileID: 8300000, guid: cafe0a03e802ac04eb5253a724f6ac39, type: 3}
   fireHate: 0.5
-  shieldCoolDown: 5
+  shieldCoolDown: 3
   canAttack: 0
   canShield: 1
 --- !u!114 &114942596939452446

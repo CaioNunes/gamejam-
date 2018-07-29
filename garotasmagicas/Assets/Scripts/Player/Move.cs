@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Move : MonoBehaviour {
 
@@ -18,6 +19,7 @@ public class Move : MonoBehaviour {
     Animator animator;
     public AudioClip explodiu;
     bool jaVerifiquei = false;
+    bool canWalk = true;
 
     public float deathTimer = 0f;
     float timerMorte = 0f;
@@ -26,7 +28,7 @@ public class Move : MonoBehaviour {
     
     // Use this for initialization
     void Start () {
-        life = 2;
+        life = 1;
         isAlive = true;
         canJump = true;        
         animator = GetComponent<Animator>();
@@ -58,7 +60,7 @@ public class Move : MonoBehaviour {
     void Jump()
     {
         float jump = Input.GetAxisRaw(gameObject.GetComponent<Controls>().verticalMove);
-        if (jump > 0 && canJump)
+        if (jump > 0 && canJump && LevelManager.canMove)
         {
             animator.Play("Jump");
             directionTop = PlayerDirectionEnum.UP;
@@ -78,7 +80,7 @@ public class Move : MonoBehaviour {
         float horizontalmove = Input.GetAxisRaw(gameObject.GetComponent<Controls>().horizontalMove);
         animator.SetFloat("speed", Mathf.Abs(horizontalmove));
 
-        if (horizontalmove > 0){
+        if (horizontalmove > 0 && canWalk && LevelManager.canMove){
                 if (direction == PlayerDirectionEnum.LEFT){
                     flip();
                 }
@@ -87,7 +89,7 @@ public class Move : MonoBehaviour {
                gameObject.transform.Translate(horizontalSpeed * Time.deltaTime, 0, 0);
             }
 
-        if (horizontalmove < 0)
+        if (horizontalmove < 0 && canWalk)
         {
             if (PlayerDirectionEnum.RIGHT == direction)
             {
@@ -105,6 +107,7 @@ public class Move : MonoBehaviour {
             isAlive = false;
             jaVerifiquei = true;
             animator.Play("Death");
+            gameObject.GetComponent<Move>().canWalk = false;
             AudioSource.PlayClipAtPoint(explodiu, transform.position);
         }
 
@@ -112,7 +115,9 @@ public class Move : MonoBehaviour {
         {
             timerMorte += Time.deltaTime;
             if (timerMorte >= deathTimer) {
-                Destroy(this.gameObject);
+               
+                    Destroy(this.gameObject);
+                
             }
         }
     }

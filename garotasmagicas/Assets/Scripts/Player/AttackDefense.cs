@@ -38,7 +38,7 @@ public class AttackDefense : MonoBehaviour {
     
     void Attack()
     {
-        if (Input.GetButtonDown(gameObject.GetComponent<Controls>().attack) && canAttack)
+        if (Input.GetButtonDown(gameObject.GetComponent<Controls>().attack) && canAttack && LevelManager.canAttack)
         {
             animator.Play("Attack");
             fireBall.GetComponent<FireBall>().CastDirection(direction);
@@ -46,10 +46,10 @@ public class AttackDefense : MonoBehaviour {
             {                
                 Instantiate(fireBall as GameObject, new Vector2(castPointUP.position.x, castPointUP.position.y), Quaternion.Euler(0f, 0f, 90f));                
             }
-            if (PlayerDirectionEnum.DOWN == direction)
-            {                
-                Instantiate(fireBall as GameObject, new Vector2(castPointDOWN.position.x,castPointDOWN.position.y), Quaternion.Euler(0f, 0f, -90f));                
-            }
+            //if (PlayerDirectionEnum.DOWN == direction)
+            //{                
+            //    Instantiate(fireBall as GameObject, new Vector2(castPointDOWN.position.x,castPointDOWN.position.y), Quaternion.Euler(0f, 0f, -90f));                
+            //}
             if (PlayerDirectionEnum.RIGHT == direction)
             {
                 Instantiate(fireBall as GameObject, new Vector2(castPointHorizontal.position.x,castPointHorizontal.position.y), Quaternion.identity);
@@ -68,7 +68,7 @@ public class AttackDefense : MonoBehaviour {
     void Defense()
     {
         //Se o botão de defesa foi desparado e o seu cooldown está zerado.
-        if (Input.GetButtonDown(gameObject.GetComponent<Controls>().shield) && canShield)
+        if (Input.GetButtonDown(gameObject.GetComponent<Controls>().shield) && canShield && LevelManager.canAttack)
         {
             GameObject newShield = Instantiate(shield, castPointShield.position, castPointShield.rotation);
             newShield.transform.SetParent(castPointShield);
@@ -139,6 +139,7 @@ public class AttackDefense : MonoBehaviour {
     {
         Debug.Log("HIT");
         gameObject.GetComponent<Move>().life -= 1;
+
     }    
 
 }

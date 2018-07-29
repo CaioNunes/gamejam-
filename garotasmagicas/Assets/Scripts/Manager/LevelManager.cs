@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
 
@@ -15,6 +16,9 @@ public class LevelManager : MonoBehaviour {
     public Sprite dois;
     public Sprite um;
 
+    public static bool canAttack = false;
+    public static bool canMove = false;
+
     // Use this for initialization
     void Start () {
         PauseAndResume();
@@ -26,8 +30,13 @@ public class LevelManager : MonoBehaviour {
 		 time -= Time.deltaTime;
         numero -= Time.deltaTime;
         //Debug.Log(numero);
-       
 
+        if (GameObject.FindGameObjectsWithTag("Player").Length == 1)
+        {
+            SceneManager.LoadScene("Win");
+            Destroy(this.gameObject);
+
+        }
 
     }
 
@@ -68,6 +77,8 @@ public class LevelManager : MonoBehaviour {
             Time.timeScale = 1;
             counter = 0;
             Destroy(contador);
+            canAttack = true;
+            canMove = true;
         }
 
      

@@ -7,51 +7,30 @@ public class Move : MonoBehaviour {
 
     public float horizontalSpeed;  
     public float jumpForce;
-
-    private bool canJump;
+    public int life;
+    public bool isAlive;
+    public bool canJump;
 
     public Rigidbody2D rigidBody;
     public GameObject fireBall;
     public PlayerDirectionEnum direction;
     public PlayerDirectionEnum directionTop;
     Animator animator;
-
-    public float contador;
-    float timer = 0;
-
+    
     // Use this for initialization
     void Start () {
-        canJump = true;
-        PauseAndResume();
+        life = 2;
+        isAlive = true;
+        canJump = true;        
         animator = GetComponent<Animator>();
     }
-
-    void PauseAndResume()
-    {
-        Time.timeScale = 0;
-        //Display Image here
-        StartCoroutine(ResumeAfterNSeconds(6.5f));
-    }
-
-    
-    IEnumerator ResumeAfterNSeconds(float timePeriod)
-    {
-        yield return new WaitForEndOfFrame();
-        timer += Time.unscaledDeltaTime;
-        if (timer < timePeriod)
-            StartCoroutine(ResumeAfterNSeconds(6.5f));
-        else
-        {
-            Time.timeScale = 1;                
-            timer = 0;
-        }
-    }
-
     // Update is called once per frame
     void Update () {
         HorizontalMove();
-        Jump();        
+        Jump();
+        Alive();
     }
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.gameObject.tag == "Plataform" || collider.gameObject.tag == "Player")
@@ -76,7 +55,8 @@ public class Move : MonoBehaviour {
         {
             directionTop = PlayerDirectionEnum.DOWN;            
         }
-    }     
+    }
+    
     void HorizontalMove()
     {
         float horizontalmove = Input.GetAxisRaw(gameObject.GetComponent<Controls>().horizontalMove);
@@ -101,6 +81,20 @@ public class Move : MonoBehaviour {
             gameObject.transform.Translate(-horizontalSpeed * Time.deltaTime, 0, 0);
         }
     }
+
+    void Alive()
+    {
+        if (life <= 0)
+        {
+            isAlive = false;
+        }
+
+        if (!isAlive)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
 
     void flip() {
         Vector3 scale = transform.localScale;

@@ -10,7 +10,7 @@ public class Shield : MonoBehaviour
 
     private void Start()
     {
-        shieldTimer = 1f;
+        
     }
 
     void Update()

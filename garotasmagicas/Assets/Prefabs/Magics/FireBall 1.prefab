@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 20
-  direction: 2
+  direction: 1
   lifetime: 3
 --- !u!212 &212299322297995532
 SpriteRenderer:

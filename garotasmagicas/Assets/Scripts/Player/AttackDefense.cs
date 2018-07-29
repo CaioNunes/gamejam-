@@ -24,7 +24,7 @@ public class AttackDefense : MonoBehaviour {
     void Start () {
         canAttack = true;
         canShield = true;
-        animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();        
     }	
 	// Update is called once per frame
 	void Update () {
@@ -134,6 +134,7 @@ public class AttackDefense : MonoBehaviour {
 
     public void TakeDamage()
     {
-        Destroy(this.gameObject);
+        gameObject.GetComponent<Move>().life -= 1; 
     }    
+
 }

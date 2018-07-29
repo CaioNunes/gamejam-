@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212110503245160280}
   - component: {fileID: 58390389186716156}
   - component: {fileID: 114511299647297708}
+  - component: {fileID: 70117628700853030}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Shield
@@ -36,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1144499418763846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.9, y: 1.9, z: 0}
-  m_LocalScale: {x: 0.2597554, y: 0.2597554, z: 0.2597554}
+  m_LocalPosition: {x: -4.636, y: 2.579, z: 0}
+  m_LocalScale: {x: 0.043647934, y: 0.08120546, z: 0.08120546}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -48,15 +49,30 @@ CircleCollider2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1144499418763846}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.31701067, y: 0}
+  serializedVersion: 2
+  m_Radius: 4.748826
+--- !u!70 &70117628700853030
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1144499418763846}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 5.26
+  m_Offset: {x: -0.03019019, y: 0.12409411}
+  m_Size: {x: 5.4434214, y: 9.253269}
+  m_Direction: 0
 --- !u!114 &114511299647297708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,6 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b2f898d6ee5e1449491f9d74d438ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shieldTimer: 5
 --- !u!212 &212110503245160280
 SpriteRenderer:
   m_ObjectHideFlags: 1

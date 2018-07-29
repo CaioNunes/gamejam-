@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,14 +14,39 @@ public class Move : MonoBehaviour {
     public GameObject fireBall;
     public PlayerDirectionEnum direction;
     public PlayerDirectionEnum directionTop;
-    
+
+    public float contador;
+    float timer = 0;
+
     // Use this for initialization
     void Start () {
         canJump = true;
+        PauseAndResume();
     }
+
+    void PauseAndResume()
+    {
+        Time.timeScale = 0;
+        //Display Image here
+        StartCoroutine(ResumeAfterNSeconds(5.0f));
+    }
+
     
-	// Update is called once per frame
-	void Update () {
+    IEnumerator ResumeAfterNSeconds(float timePeriod)
+    {
+        yield return new WaitForEndOfFrame();
+        timer += Time.unscaledDeltaTime;
+        if (timer < timePeriod)
+            StartCoroutine(ResumeAfterNSeconds(3.0f));
+        else
+        {
+            Time.timeScale = 1;                //Resume
+            timer = 0;
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
         HorizontalMove();
         Jump();        
     }

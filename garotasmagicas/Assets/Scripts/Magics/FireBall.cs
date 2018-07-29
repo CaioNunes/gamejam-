@@ -30,6 +30,7 @@ public class FireBall : MonoBehaviour {
         if (PlayerDirectionEnum.RIGHT == direction)
         {
             gameObject.transform.Translate(velocity * Time.deltaTime * -1, 0, 0);
+            //FLIP
         }
 
         if (PlayerDirectionEnum.LEFT == direction)
@@ -41,7 +42,7 @@ public class FireBall : MonoBehaviour {
         if (PlayerDirectionEnum.UP == direction)
         {
             gameObject.transform.Translate(0, velocity * Time.deltaTime * -1, 0);
-            //FLIPP
+            //FLIP
         }
 
         if (PlayerDirectionEnum.DOWN == direction)
@@ -61,10 +62,8 @@ public class FireBall : MonoBehaviour {
         }
 
         if (PlayerDirectionEnum.LEFT == direction)
-        {
-           
-         gameObject.transform.Translate((velocity * Time.deltaTime) * -1, 0, 0);
-  
+        {           
+         gameObject.transform.Translate((velocity * Time.deltaTime) * -1, 0, 0);  
             //FLIP
         }        
 

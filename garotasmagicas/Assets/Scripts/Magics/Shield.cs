@@ -6,12 +6,7 @@ using UnityEngine;
 public class Shield : MonoBehaviour
 {
 
-    public float shieldTimer = 5.0f;
-
-    void Start()
-    {
-       
-    }
+    public float shieldTimer;    
 
     void Update()
     {

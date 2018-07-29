@@ -4,34 +4,37 @@ using UnityEngine;
 
 public class AttackDefense : MonoBehaviour {
 
-
+    public GameObject shield;
     public GameObject fireBall;
     public Transform castPointHorizontal;
     public Transform castPointUP;
     public Transform castPointDOWN;
     public AudioClip cast;
     public float fireHate;
+    public float shieldCoolDown;
     public bool canAttack;
-    private float timer;
+    public bool canShield;
+    private float timerAttack;
+    private float timerShield;
+    
     private PlayerDirectionEnum direction;
 
-    public GameObject shield;
-    public float shieldCoolDown;
-
     void Start () {
-        canAttack = true;        
+        canAttack = true;
+        canShield = true;
     }	
 	// Update is called once per frame
 	void Update () {
         HandleDirection();
         Attack();
-        FireHateTimer();
         Defense();
+        FireHateTimer();
+        ShieldCooldownTimer();        
 	}
     
     void Attack()
     {
-        if (Input.GetButtonDown(gameObject.GetComponent<Controls>().attack)&&canAttack)
+        if (Input.GetButtonDown(gameObject.GetComponent<Controls>().attack) && canAttack)
         {            
             fireBall.GetComponent<FireBall>().CastDirection(direction);
             if (PlayerDirectionEnum.UP == direction)
@@ -51,6 +54,17 @@ public class AttackDefense : MonoBehaviour {
         }
     }
 
+    void Defense()
+    {
+        //Se o botão de defesa foi desparado e o seu cooldown está zerado.
+        if (Input.GetButtonDown(gameObject.GetComponent<Controls>().shield) && canShield)
+        {
+            GameObject newShield = Instantiate(shield, castPointHorizontal.position, castPointHorizontal.rotation);
+            newShield.transform.SetParent(castPointHorizontal);
+
+            canShield = false;
+        }       
+    }
 
     void HandleDirection()
     {
@@ -79,34 +93,30 @@ public class AttackDefense : MonoBehaviour {
     {
         if(canAttack == false)
         {
-            timer += Time.deltaTime;
-            if(timer >= fireHate)
+            timerAttack += Time.deltaTime;
+            if(timerAttack >= fireHate)
             {
                 canAttack = true;
-                timer = 0;
+                timerAttack = 0;
             }
+        }
+    }
+
+    void ShieldCooldownTimer()
+    {
+        if (canShield == false)
+        {
+            timerShield += Time.deltaTime;
+            if (timerShield >= shieldCoolDown)
+            {
+                canShield = true;
+                timerShield = 0;
+            }                
         }
     }
 
     public void TakeDamage()
     {
         Destroy(this.gameObject);
-    }
-
-    void Defense()
-    {
-        //Se o botão de defesa foi desparado e o seu cooldown está zerado.
-        if (Input.GetButtonDown(gameObject.GetComponent<Controls>().shield) && shieldCoolDown <= 0.0f)
-        {
-            GameObject newShield = Instantiate(shield, castPointHorizontal.position, castPointHorizontal.rotation);
-            newShield.transform.SetParent(castPointHorizontal);
-
-            //shieldCoolDown = 15.0f;
-        }
-
-        if (shieldCoolDown >= 0.0f)
-        {
-            shieldCoolDown -= Time.deltaTime;
-        }
-    }
+    }    
 }
